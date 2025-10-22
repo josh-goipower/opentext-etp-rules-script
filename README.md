@@ -1,4 +1,4 @@
-# OpenText ETP Transport Rules# OpenText Email Threat Protection Transport Rules Script# Microsoft 365 Transport Rules for OpenText ETP# OpenText Email Threat Protection (ETP) Rules Script# Robocopy Migration Tool
+# OpenText ETP Transport Rules# OpenText ETP Transport Rules# OpenText ETP Transport Rules# OpenText Email Threat Protection Transport Rules Script# Microsoft 365 Transport Rules for OpenText ETP# OpenText Email Threat Protection (ETP) Rules Script# Robocopy Migration Tool
 
 
 
@@ -6,23 +6,23 @@ Automate Microsoft 365 transport rule setup for OpenText Email Threat Protection
 
 
 
-## What It DoesThis PowerShell script automates the creation of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) service. It creates a set of rules to manage email flow through ETP while maintaining security and ensuring proper message handling.
+## What It DoesAutomate Microsoft 365 transport rule setup for OpenText Email Threat Protection.
 
 
+
+Creates four transport rules in M365:
+
+
+
+- **Quarantine Rule** - Quarantines external emails that bypass ETP## What It DoesAutomate Microsoft 365 transport rule setup for OpenText Email Threat Protection.
+
+- **Reject Rule** - Alternative to quarantine, rejects bypassed emails
+
+- **Allow Rule** - Lets ETP-processed mail through (auto-enabled)
+
+- **SafeLinks Bypass** - Allows ETP quarantine reports to skip SafeLinks
 
 This script creates four transport rules in Microsoft 365 to integrate with OpenText ETP:
-
-
-
-**Quarantine Rule** - Quarantines external emails that bypass ETP  ## Transport Rules CreatedThis PowerShell script automates the creation of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) service integration.
-
-**Reject Rule** - Alternative to quarantine, rejects bypassed emails  
-
-**Allow Rule** - Lets ETP-processed mail through (auto-enabled)  
-
-**SafeLinks Bypass** - Allows ETP quarantine reports to skip SafeLinks
-
-The script creates four essential rules:
 
 ## Quick Start
 
@@ -30,22 +30,110 @@ The script creates four essential rules:
 
 ```powershell
 
-.\Create_OpenText_Email_Threat_Protection_Rules.ps1### 1. Limit Inbound Mail to ETP (Quarantine direct send)## FeaturesThis PowerShell script automates the creation and configuration of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) integration.A PowerShell-based wrapper for Robocopy that provides structured migration workflows with progress tracking, email notifications, and detailed reporting.
+.\Create_OpenText_Email_Threat_Protection_Rules.ps1**Quarantine Rule** - Quarantines external emails that bypass ETP  ## What It DoesThis PowerShell script automates the creation of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) service. It creates a set of rules to manage email flow through ETP while maintaining security and ensuring proper message handling.
 
 ```
 
-- **Status**: Created Disabled
+**Reject Rule** - Alternative to quarantine, rejects bypassed emails  
 
-The script will:
+## After Running
 
-- Install required modules if needed- **Purpose**: Quarantines external emails not processed by ETP
+**Allow Rule** - Lets ETP-processed mail through (auto-enabled)  
+
+1. Visit [Exchange Admin Center](https://admin.exchange.microsoft.com/#/transportrules)
+
+2. Enable either Quarantine or Reject (not both)**SafeLinks Bypass** - Allows ETP quarantine reports to skip SafeLinks
+
+3. Enable SafeLinks Bypass if using ETP
+
+4. Verify rule prioritiesThis script creates four transport rules in Microsoft 365 to integrate with OpenText ETP:
+
+
+
+## Protected Items## Quick Start
+
+
+
+All rules exclude:
+
+- Voicemail messages
+
+- Meeting forwards  ```powershell
+
+- ETP IP ranges
+
+.\Create_OpenText_Email_Threat_Protection_Rules.ps1**Quarantine Rule** - Quarantines external emails that bypass ETP  ## Transport Rules CreatedThis PowerShell script automates the creation of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) service integration.
+
+## Requirements
+
+```
+
+- PowerShell 5.1+
+
+- Exchange admin permissions**Reject Rule** - Alternative to quarantine, rejects bypassed emails  
+
+
+
+## LicenseThe script will:
+
+
+
+MIT- Install required modules if needed**Allow Rule** - Lets ETP-processed mail through (auto-enabled)  
+
 
 - Connect to Exchange Online
 
-- Create all four rules with proper settings- **Exceptions**:
+- Create all four rules with proper settings**SafeLinks Bypass** - Allows ETP quarantine reports to skip SafeLinks
 
 - Leave enforcement rules disabled for your review
 
+The script creates four essential rules:
+
+## After Running
+
+## Quick Start
+
+1. Go to [Exchange Admin Center](https://admin.exchange.microsoft.com/#/transportrules)
+
+2. Enable **either** Quarantine or Reject (not both)
+
+3. Enable SafeLinks Bypass if using ETP
+
+4. Verify rule priorities```powershell
+
+
+
+## What's Protected.\Create_OpenText_Email_Threat_Protection_Rules.ps1### 1. Limit Inbound Mail to ETP (Quarantine direct send)## FeaturesThis PowerShell script automates the creation and configuration of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) integration.A PowerShell-based wrapper for Robocopy that provides structured migration workflows with progress tracking, email notifications, and detailed reporting.
+
+
+
+All rules automatically exclude:```
+
+- Voicemail messages
+
+- Meeting forwards- **Status**: Created Disabled
+
+- ETP IP ranges
+
+The script will:
+
+## Requirements
+
+- Install required modules if needed- **Purpose**: Quarantines external emails not processed by ETP
+
+- PowerShell 5.1+
+
+- Exchange admin permissions- Connect to Exchange Online
+
+- Internet connection
+
+- Create all four rules with proper settings- **Exceptions**:
+
+## License
+
+- Leave enforcement rules disabled for your review
+
+MIT
   - Voicemail messages### Created Rules
 
 ## After Running
