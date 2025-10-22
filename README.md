@@ -6,10 +6,10 @@ Automate Microsoft 365 transport rule setup for OpenText Email Threat Protection
 
 Creates four transport rules in M365:
 
-- **Quarantine Rule** - Quarantines external emails that bypass ETP
-- **Reject Rule** - Alternative to quarantine, rejects bypassed emails
-- **Allow Rule** - Lets ETP-processed mail through (auto-enabled)
-- **SafeLinks Bypass** - Allows ETP quarantine reports to skip SafeLinks
+- **Limit Inbound Mail to ETP (Quarantine direct send)** - Quarantines external emails that bypass ETP
+- **Limit Inbound Mail to ETP (Reject direct send)** - Alternative to quarantine, rejects bypassed emails
+- **Allow Inbound Mail from ETP** - Lets ETP-processed mail through (auto-enabled)
+- **Bypass Safe Links** - Allows ETP quarantine reports to skip SafeLinks
 
 ## Quick Start
 
