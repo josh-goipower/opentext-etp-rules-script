@@ -1,135 +1,266 @@
-# OpenText Email Threat Protection (ETP) Rules Script# Robocopy Migration Tool
+# Microsoft 365 Transport Rules for OpenText ETP# OpenText Email Threat Protection (ETP) Rules Script# Robocopy Migration Tool
 
 
 
-This PowerShell script automates the creation and configuration of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) integration.A PowerShell-based wrapper for Robocopy that provides structured migration workflows with progress tracking, email notifications, and detailed reporting.
+This PowerShell script automates the creation of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) service integration.
 
 
 
-## Overview## Features
+## FeaturesThis PowerShell script automates the creation and configuration of Microsoft 365 transport rules required for OpenText Email Threat Protection (ETP) integration.A PowerShell-based wrapper for Robocopy that provides structured migration workflows with progress tracking, email notifications, and detailed reporting.
 
 
 
-The script creates four essential transport rules in Microsoft 365:- **Structured Migration Workflow**
-
-  - SEED: Initial copy with existing files skipped
-
-1. **Limit Inbound Mail to ETP (Quarantine)** - Quarantines external emails not processed by ETP  - SYNC: Update changed files while preserving existing
-
-   - Exceptions for Voicemail, meeting forwards, and ETP IP ranges  - RECONCILE: Back-sync newer files from destination to source
-
-   - Created disabled by default  - MIRROR: Full synchronization (with safeguards)
+### Created Rules
 
 
 
-2. **Limit Inbound Mail to ETP (Reject)** - Rejects external emails not processed by ETP- **Advanced Features**
+1. **Limit Inbound Mail to ETP (Quarantine)**## Overview## Features
 
-   - Same exceptions as Quarantine rule  - Real-time progress tracking
-
-   - Created disabled by default  - Detailed logging
-
-  - Email notifications
-
-3. **Allow Inbound Mail from ETP** - Allows mail from ETP IP ranges to bypass filtering  - Backup mode support
-
-   - Created enabled by default  - Multi-threaded operations
-
-   - Essential for ETP operation  - VSS fallback for locked files
-
-  - Bandwidth throttling
-
-4. **Bypass Safe Links** - Configures SafeLinks bypass for ETP QMR messages  - ACL preservation options
+   - Quarantines external emails not processed by ETP
 
    - Created disabled by default
 
-   - Enable only when ETP is deployed- **Safety Features**
+   - Includes exceptions for:
+
+     - Voicemail messagesThe script creates four essential transport rules in Microsoft 365:- **Structured Migration Workflow**
+
+     - Meeting forwards
+
+     - ETP IP ranges  - SEED: Initial copy with existing files skipped
+
+
+
+2. **Limit Inbound Mail to ETP (Reject)**1. **Limit Inbound Mail to ETP (Quarantine)** - Quarantines external emails not processed by ETP  - SYNC: Update changed files while preserving existing
+
+   - Alternative to Quarantine rule
+
+   - Rejects external emails not processed by ETP   - Exceptions for Voicemail, meeting forwards, and ETP IP ranges  - RECONCILE: Back-sync newer files from destination to source
+
+   - Created disabled by default
+
+   - Includes same exceptions as Quarantine rule   - Created disabled by default  - MIRROR: Full synchronization (with safeguards)
+
+
+
+3. **Allow Inbound Mail from ETP**
+
+   - Permits mail from ETP IP ranges to bypass M365 filtering
+
+   - Created enabled by default2. **Limit Inbound Mail to ETP (Reject)** - Rejects external emails not processed by ETP- **Advanced Features**
+
+   - Essential for ETP operation
+
+   - Same exceptions as Quarantine rule  - Real-time progress tracking
+
+4. **Bypass Safe Links**
+
+   - Allows QMR messages from ETP to bypass SafeLinks   - Created disabled by default  - Detailed logging
+
+   - Created disabled by default
+
+   - Specific to notice@appriver.com sender  - Email notifications
+
+
+
+### Key Capabilities3. **Allow Inbound Mail from ETP** - Allows mail from ETP IP ranges to bypass filtering  - Backup mode support
+
+
+
+- Automatic priority management   - Created enabled by default  - Multi-threaded operations
+
+- Comprehensive exception handling
+
+- IP range validation   - Essential for ETP operation  - VSS fallback for locked files
+
+- Rule removal verification
+
+- Detailed progress logging  - Bandwidth throttling
+
+
+
+## Requirements4. **Bypass Safe Links** - Configures SafeLinks bypass for ETP QMR messages  - ACL preservation options
+
+
+
+- Windows PowerShell 5.1+   - Created disabled by default
+
+- Exchange Online Management module
+
+- Microsoft 365 admin credentials   - Enable only when ETP is deployed- **Safety Features**
+
+- Exchange administrator privileges
 
   - Dry-run preview mode
 
+## Quick Start
+
 ## Prerequisites  - Mirror mode safeguards
 
-  - Write access verification
+1. **Download**
 
-- Windows PowerShell 5.1 or later  - Administrator privilege detection
+   ```powershell  - Write access verification
+
+   git clone https://github.com/josh-goipower/opentext-etp-rules-script.git
+
+   cd opentext-etp-rules-script- Windows PowerShell 5.1 or later  - Administrator privilege detection
+
+   ```
 
 - Exchange Online Management module  - Watchdog for stalled operations
 
-- Microsoft 365 Global Admin or Exchange Admin privileges
+2. **Run**
 
-- Network connectivity to Exchange Online## Requirements
+   ```powershell- Microsoft 365 Global Admin or Exchange Admin privileges
+
+   .\Create_OpenText_Email_Threat_Protection_Rules.ps1
+
+   ```- Network connectivity to Exchange Online## Requirements
 
 
 
-## Installation- Windows OS (Windows 7/Server 2008 R2 or later)
+3. **Post-Setup**
 
-- PowerShell 5.1 or later
+   - Enable either Quarantine OR Reject rule (not both)
 
-1. Download the script:- Administrator rights (recommended)
+   - Allow rule is enabled automatically## Installation- Windows OS (Windows 7/Server 2008 R2 or later)
 
-   ```powershell
+   - Enable Bypass Safe Links if using ETP
 
-   git clone https://github.com/josh-goipower/opentext-etp-rules-script.git## Usage
+   - Verify rules in Exchange Admin Center- PowerShell 5.1 or later
 
-   ```
 
-### Basic Commands
+
+## Configuration Details1. Download the script:- Administrator rights (recommended)
+
+
+
+### Quarantine/Reject Rules   ```powershell
+
+- Scope: External senders only
+
+- Action: Quarantine/Reject non-ETP mail   git clone https://github.com/josh-goipower/opentext-etp-rules-script.git## Usage
+
+- Exceptions:
+
+  - ETP IP ranges   ```
+
+  - Voicemail messages
+
+  - Meeting forwards### Basic Commands
+
+  - Forward headers
 
 2. Navigate to the script directory:
 
-   ```powershell```powershell
+### Allow Rule
 
-   cd opentext-etp-rules-script# Initial copy (dry run)
+- Purpose: Bypass M365 filtering for ETP   ```powershell```powershell
+
+- Action: Sets SCL to -1
+
+- Conditions: Matches ETP IP ranges   cd opentext-etp-rules-script# Initial copy (dry run)
+
+- Status: Enabled by default
 
    ```.\Robocopy_v6.ps1 -Mode SEED -Preview
 
+### Safe Links Rule
 
+- Purpose: QMR message handling
 
-## Usage# Perform initial copy
+- Sender: notice@appriver.com
+
+- Action: Bypasses SafeLinks processing## Usage# Perform initial copy
+
+- Status: Disabled by default
 
 .\Robocopy_v6.ps1 -Mode SEED
 
+## Security Considerations
+
 1. Run the script:
 
-   ```powershell# Sync changes
+- Rules created disabled for safety
 
-   .\Create_OpenText_Email_Threat_Protection_Rules.ps1.\Robocopy_v6.ps1 -Mode SYNC
+- Automatic rule priority management   ```powershell# Sync changes
+
+- IP range validation
+
+- Comprehensive error handling   .\Create_OpenText_Email_Threat_Protection_Rules.ps1.\Robocopy_v6.ps1 -Mode SYNC
+
+- Rule creation verification
 
    ```
 
+## Troubleshooting
+
 # Back-sync newer files from destination
 
-2. Follow the authentication prompts for Exchange Online.\Robocopy_v6.ps1 -Mode RECONCILE
+1. **Rule Creation Issues**
+
+   - Verify Exchange Online connection2. Follow the authentication prompts for Exchange Online.\Robocopy_v6.ps1 -Mode RECONCILE
+
+   - Check admin privileges
+
+   - Review error messages in console
 
 
 
-3. The script will:# Mirror source to destination (requires confirmation)
+2. **Post-Creation Steps**3. The script will:# Mirror source to destination (requires confirmation)
 
-   - Create all required rules with proper priorities.\Robocopy_v6.ps1 -Mode MIRROR -Confirm
+   - Access Exchange Admin Center
 
-   - Enable the Allow rule```
+   - Verify rule priorities   - Create all required rules with proper priorities.\Robocopy_v6.ps1 -Mode MIRROR -Confirm
 
-   - Leave other rules disabled for manual activation
+   - Enable appropriate rules
 
-### Common Options
+   - Test mail flow   - Enable the Allow rule```
+
+
+
+3. **Common Issues**   - Leave other rules disabled for manual activation
+
+   - Connection timeout: Check network
+
+   - Permission errors: Verify admin rights### Common Options
+
+   - Rule conflicts: Check existing rules
 
 4. Post-installation:
 
+## Support
+
    - Enable either Quarantine OR Reject rule (not both)- `-Preview`: Dry-run mode (no changes made)
 
-   - Enable Bypass Safe Links rule if using ETP- `-PrintCommand`: Display the constructed Robocopy command
+For technical support:
 
-   - Verify rule priorities in Exchange Admin Center- `-ForceBackup`: Use backup mode (/B) instead of restart mode (/Z)
+1. Verify Exchange Online connectivity   - Enable Bypass Safe Links rule if using ETP- `-PrintCommand`: Display the constructed Robocopy command
+
+2. Check script execution policy
+
+3. Review console output for errors   - Verify rule priorities in Exchange Admin Center- `-ForceBackup`: Use backup mode (/B) instead of restart mode (/Z)
+
+4. Submit issues via GitHub
 
 - `-AppendLogs`: Append to existing log files instead of creating new ones
 
+## Contributing
+
 ## Rule Details- `-VssFallback`: Try VSS snapshot if files are locked
 
-- `-Confirm`: Required for MIRROR mode execution
+1. Fork the repository
+
+2. Create a feature branch- `-Confirm`: Required for MIRROR mode execution
+
+3. Submit a pull request
 
 ### Limit Inbound Mail to ETP (Quarantine)
 
+## License
+
 - Purpose: Quarantine external mail not processed by ETP### Configuration
 
+This project is licensed under the MIT License - see the LICENSE file for details.
 - Exceptions:
 
   - ETP IP rangesEdit the `$Config` hashtable in the script to set:
